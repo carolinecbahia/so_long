@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/09 01:04:57 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:54:16 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@
 
 # define BUFFER_SIZE=42
 
-// utils
-int	ft_verify_fds(int fd, const char *path);
-
-// map handlers
-char map_reader(int fd);
-int map_validator(char *map_content);
-
+//structs and others
 typedef struct s_map_data
 {
 	char	**matrix;
@@ -41,6 +35,22 @@ typedef struct s_map_data
 	int		width;
 	int		height;
 }	t_map_data;
+
+typedef enum e_map_chars
+{
+	EMPTY = '0',
+	WALL = '1',
+	COLLECTIBLE = 'C',
+	EXIT = 'E',
+	PLAYER = 'P'
+}	t_map_chars;
+
+// utils
+int		ft_verify_fds(int fd, const char *path);
+
+// map handlers
+char	map_reader(int fd);
+int		map_validator(char *map_content, t_map_data *map_data);
 
 // gamerun
 
