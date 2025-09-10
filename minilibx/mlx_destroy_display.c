@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 21:17:32 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/10 20:43:47 by ccavalca         ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "mlx_int.h"
 
-int	ft_verify_fds(int fd, const char *path)
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	if (fd == -1)
-	{
-		ft_putchar_fd("Error", 2);
-		ft_putstr_fd("Could not open file:", 2);
-		ft_putendl_fd(path, 2);
-		exit(EXIT_FAILURE);
-	}
-	return(fd);
+	XCloseDisplay(xvar->display);
 }
