@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/11 01:24:51 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/11 01:26:41 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
+# include <errno.h>
 
 # define BUFFER_SIZE =42
 
