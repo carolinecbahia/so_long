@@ -6,34 +6,76 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/10 20:42:25 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/11 01:07:46 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*map_reader(int fd);
+int	path_validator(t_map_data *map_data);
+int	ft_free_and_error(char **matrix, char *msg);
 
-static char	**create_matrix(t_map_data *map_data, char *map_content)
+static char	**create_matrix(char *map_content)
 {
-	map_data->matrix = ft_split(map_content, '\n');
-	if (!map_data->matrix)
+	char	**matrix;
+
+	if (!map_content)
 		return (NULL);
-	return (map_data->matrix);
+	matrix = ft_split(map_content, '\n');
+	if (!matrix)
+		return (NULL);
+	return (matrix);
 }
 
-static void	set_map_dimensions(t_map_data *map_data)
+static int	check_map_dimensions(t_map_data *map_data)
 {
-	int	y;
+	int		y;
+	size_t	x;
 
 	y = 0;
 	while (map_data->matrix[y] != NULL)
 		y++;
-	if (map_data->matrix[0] != NULL)
-		map_data->width = ft_strlen(map_data->matrix[0]);
-	else
-		map_data->width = 0;
+	if (y == 0)
+		return (-1);
+	x = ft_strlen(map_data->matrix[0]);
+	if (x < 3)
+		return (-1);
+	if (x < 3 || y < 3)
+		return (-1);
 	map_data->height = y;
+	map_data->width = x;
+	y = 0;
+	while (map_data->matrix[y] != NULL)
+	{
+		if (ft_strlen(map_data->matrix[y] != x))
+			return (-1);
+		y++;
+	}
+	return (0);
+}
+
+static int	check_map_walls(t_map_data *map_data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < (int)map_data->width)
+	{
+		if (map_data->matrix[0][x] != WALL
+			|| map_data->matrix[map_data->height - 1][x] != WALL)
+			return (-1);
+		x++;
+	}
+	y = 0;
+	while (y < map_data->height)
+	{
+		if (map_data->matrix[y][0] != WALL
+			|| map_data->matrix[y][map_data->width - 1] != WALL)
+			return (-1);
+		y++;
+	}
+	return (0);
 }
 
 static void	count_map_elements(t_map_data *map_data)
@@ -62,49 +104,20 @@ static void	count_map_elements(t_map_data *map_data)
 	}
 }
 
-static int	path_validator(t_map_data *map_data, t_vectors *vectors, char **map_marked)
-{
-	int x;
-	int y;
-	
-	y = 0;
-	while (map_data->matrix[y] != NULL)
-	{
-		x = 0;
-		while (map_data->matrix[y][x] != '\0')
-		{
-			if (map_data->matrix[y][x] == PLAYER)
-			vectors->x = x;
-			vectors->y = y;
-		}
-			x++;
-		}
-		y++;
-	}
-	
-	//walk x+1, if the place is 0 or C, mark as X, then x++; else x does not increase but y+1
-	//? check if the place is 0 or C, if it is, then change for X and move.
-	//? compare the 2 maps, if there is C that not changed to G on the checked map, is invalid (ft_strchr?)
-	//? if E is not marked, also is invalid
-	//? if all the C and the E are marked, then is valid
-
-	
-}
-
 int	map_validator(char *map_content, t_map_data *map_data)
 {
-	int	x;
-	int	y;
-	int map_height;
-	int map_width;
-	
-	//TODO map_content = map_reader
-	//TODO map_data->matrix = create_matrix(map_content)
-	//TODO if set_map_dimensions == rectangle (if row's lenght doesn't match the width, then is an invalid map), 
-	//TODO then check map elements (borders 1, matrix[0], matrix[map_height], matrix[while y < height][x == 0 || x = width]) 
-	//tODO && count (P = 1, E = 1, C >= 1)
-	//TODO if map is valid, then path_validator
-	//TODO if path is valid, then return 0 (sucess)
-	
+	map_data->matrix = create_matrix(map_content);
+	if (!map_data->matrix)
+		return (ft_free_and_error(NULL, "Failed to create matrix"));
+	if (check_map_dimensions(map_data) != 0)
+		return (ft_free_and_error(map_data->matrix, "Invalid map dimensions"));
+	if (check_map_walls(map_data) != 0)
+		return (ft_free_and_error(map_data->matrix, "Not enclosed map"));
+	count_map_elements(map_data);
+	if ((map_data->player_count != 1 || map_data->exit_count != 1
+			|| map_data->collectible_count < 1))
+		return (ft_free_and_error(map_data->matrix, "Wrong elements count"));
+	if (path_validator(map_data) == 0)
+		return (ft_free_and_error(map_data->matrix, "No valid path"));
 	return (0);
 }

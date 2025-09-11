@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/10 20:50:08 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/11 00:45:08 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <stdio.h>
 # include <string.h>
 
-# define BUFFER_SIZE=42
+# define BUFFER_SIZE =42
+
 
 //structs and others
 typedef struct s_map_data
@@ -48,11 +49,14 @@ typedef enum e_map_chars
 	WALL = '1',
 	COLLECTIBLE = 'C',
 	EXIT = 'E',
-	PLAYER = 'P'
+	PLAYER = 'P',
+	VISITED = 'X'
 }	t_map_chars;
 
 // utils
 int		ft_verify_fds(int fd, const char *path);
+void	ft_free_matrix(char **matrix);
+int		ft_free_and_error(char **matrix, char *msg);
 
 // map handlers
 char	*map_reader(int fd);
