@@ -6,17 +6,29 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/11 01:27:27 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 03:47:16 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+int	setup_game(t_game *game)
+{
+	game->mlx_ptr = mlx_init();
+	if (!game->mlx_ptr)
+		return (0);
+	game->win_ptr = mlx_new_window(game->mlx_ptr, game->width * TILE_SIZE, game->height * TILE_SIZE, "So Long");
+	if (!game->win_ptr)
+		return (0);
+	// TODO load_textures(game);
+	return (1);
+}
+
 int main(int argc, char **argv)
 {
 	int fd;
 	char *map_content;
-	t_map_data	map_data;
+	t_game	map_data;
 	
 	if (argc != 2)
 		return (ft_free_and_error(NULL, "Usage: ./so_long <map_file.ber>"));

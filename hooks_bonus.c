@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   bonus_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/14 03:30:52 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 03:35:26 by ccavalca         ###   ########.fr       */
+/*   Created: 2025/09/14 03:35:34 by ccavalca          #+#    #+#             */
+/*   Updated: 2025/09/14 03:35:37 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,23 @@ int handle_key(int keycode, t_game *game)
 {
     if (keycode == KEY_ESC)
     {
-        mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-        // TODO: Libere a memória do jogo
-        exit(0);
+        handle_close(game);
     }
-    // TODO: Adicionar a lógica de movimento para as teclas WASD
+    if (keycode == KEY_W || keycode == KEY_UP)
+    {
+        // TODO: Mova o jogador para cima
+    }
+    if (keycode == KEY_S || keycode == KEY_DOWN)
+    {
+        // TODO: Mova o jogador para baixo
+    }
+    if (keycode == KEY_A || keycode == KEY_LEFT)
+    {
+        // TODO: Mova o jogador para a esquerda
+    }
+    if (keycode == KEY_D || keycode == KEY_RIGHT)
+    {
+        // TODO: Mova o jogador para a direita
+    }
     return (0);
-}
-
-int handle_close(t_game *game)
-{
-    mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-    // TODO: Libere a memória do jogo
-    exit(0);
 }

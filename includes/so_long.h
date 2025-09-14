@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/11 01:26:41 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 03:46:50 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,36 @@
 # include <string.h>
 # include <errno.h>
 
-# define BUFFER_SIZE =42
+# define BUFFER_SIZE 42
+# define TILE_SIZE 32
 
 
 //structs and others
-typedef struct s_map_data
+typedef struct s_game
 {
-	char	**matrix;
-	int		player_count;
-	int		exit_count;
-	int		collectible_count;
-	int		width;
-	int		height;
-	void	*mlx;
-	void	*window;
-}	t_map_data;
+    // Variáveis do Mapa
+    char    **matrix;
+    int     player_count;
+    int     exit_count;
+    int     collectible_count;
+    int     width;
+    int     height;
+    
+    // Variáveis do Jogo
+    int     moves;
+    int     collected;
+    
+    // Variáveis da MiniLibX
+    void    *mlx_ptr;
+    void    *win_ptr;
+
+    // Variáveis de Imagem/Sprites
+    void    *player_img;
+    void    *wall_img;
+    void    *collectible_img;
+    void    *empty_img;
+    void    *exit_img;
+}   t_game;
 
 typedef struct s_vectors
 {
@@ -63,8 +78,8 @@ int		ft_free_and_error(char **matrix, char *msg);
 
 // map handlers
 char	*map_reader(int fd);
-int		path_validator(t_map_data *data);
-int		map_validator(char *map_content, t_map_data *map_data);
+int		path_validator(t_game *data);
+int		map_validator(char *map_content, t_game *map_data);
 
 // gamerun
 

@@ -6,13 +6,13 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/11 01:07:46 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 03:49:02 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	path_validator(t_map_data *map_data);
+int	path_validator(t_game *map_data);
 int	ft_free_and_error(char **matrix, char *msg);
 
 static char	**create_matrix(char *map_content)
@@ -27,7 +27,7 @@ static char	**create_matrix(char *map_content)
 	return (matrix);
 }
 
-static int	check_map_dimensions(t_map_data *map_data)
+static int	check_map_dimensions(t_game *map_data)
 {
 	int		y;
 	size_t	x;
@@ -47,14 +47,14 @@ static int	check_map_dimensions(t_map_data *map_data)
 	y = 0;
 	while (map_data->matrix[y] != NULL)
 	{
-		if (ft_strlen(map_data->matrix[y] != x))
+		if (ft_strlen(map_data->matrix[y] != (int)x))
 			return (-1);
 		y++;
 	}
 	return (0);
 }
 
-static int	check_map_walls(t_map_data *map_data)
+static int	check_map_walls(t_game *map_data)
 {
 	int	x;
 	int	y;
@@ -78,7 +78,7 @@ static int	check_map_walls(t_map_data *map_data)
 	return (0);
 }
 
-static void	count_map_elements(t_map_data *map_data)
+static void	count_map_elements(t_game *map_data)
 {
 	int	x;
 	int	y;
