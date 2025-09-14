@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 03:49:02 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 03:50:44 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	count_map_elements(t_game *map_data)
 	}
 }
 
-int	map_validator(char *map_content, t_map_data *map_data)
+int	map_validator(char *map_content, t_game *map_data)
 {
 	map_data->matrix = create_matrix(map_content);
 	if (!map_data->matrix)
