@@ -3,33 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 03:47:16 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:16:51 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	setup_game(t_game *game)
+int	main(int argc, char **argv)
 {
-	game->mlx_ptr = mlx_init();
-	if (!game->mlx_ptr)
-		return (0);
-	game->win_ptr = mlx_new_window(game->mlx_ptr, game->width * TILE_SIZE, game->height * TILE_SIZE, "So Long");
-	if (!game->win_ptr)
-		return (0);
-	// TODO load_textures(game);
-	return (1);
-}
-
-int main(int argc, char **argv)
-{
-	int fd;
-	char *map_content;
+	int		fd;
+	char	*map_content;
 	t_game	map_data;
-	
+
 	if (argc != 2)
 		return (ft_free_and_error(NULL, "Usage: ./so_long <map_file.ber>"));
 	fd = open(argv[1], O_RDONLY);
@@ -51,5 +39,5 @@ int main(int argc, char **argv)
 	//TODO mlx_loop(map_data.mlx);
 	ft_free_matrix(map_data.matrix);
 	free(map_content);
-	return (0);	
+	return (0);
 }

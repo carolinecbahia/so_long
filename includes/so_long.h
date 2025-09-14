@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 03:46:50 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:54:07 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,27 @@
 //structs and others
 typedef struct s_game
 {
-    // Variáveis do Mapa
-    char    **matrix;
-    int     player_count;
-    int     exit_count;
-    int     collectible_count;
-    int     width;
-    int     height;
-    
-    // Variáveis do Jogo
-    int     moves;
-    int     collected;
-    
-    // Variáveis da MiniLibX
-    void    *mlx_ptr;
-    void    *win_ptr;
-
-    // Variáveis de Imagem/Sprites
-    void    *player_img;
-    void    *wall_img;
-    void    *collectible_img;
-    void    *empty_img;
-    void    *exit_img;
-}   t_game;
+	char	**matrix;
+	int		player_count;
+	int		exit_count;
+	int		collectible_count;
+	int		width;
+	int		height;
+	int		moves;
+	int		collected;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*player_img;
+	void	*wall_img;
+	void	*collectible_img;
+	void	*empty_img;
+	void	*exit_img;
+}	t_game;
 
 typedef struct s_vectors
 {
-	int y;
-	int x;	
+	int	y;
+	int	x;	
 }	t_vectors;
 
 typedef enum e_map_chars
@@ -70,6 +63,15 @@ typedef enum e_map_chars
 	PLAYER = 'P',
 	VISITED = 'X'
 }	t_map_chars;
+
+typedef enum e_keys
+{
+	KEY_ESC = ,
+	KEY_W = 'w'
+	KEY_A = 'a'
+	KEY_S = 's'
+	KEY_D = 'd'
+}	t_keys;
 
 // utils
 int		ft_verify_fds(int fd, const char *path);
