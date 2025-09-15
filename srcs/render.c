@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 03:30:29 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 19:31:18 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 02:38:18 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,37 @@ void	load_textures(t_game *game)
 	int	size;
 
 	game->wall_img = (mlx_xpm_file_to_image(game->mlx_ptr,
-				"./textures/wall.xpm", &size, &size));
+				"./textures/tiles/wall.xpm", &size, &size));
 	game->empty_img = (mlx_xpm_file_to_image(game->mlx_ptr,
-				"./textures/empty.xpm", &size, &size));
+				"./textures/tiles/empty.xpm", &size, &size));
 	game->player_img = (mlx_xpm_file_to_image(game->mlx_ptr,
-				"./textures/player.xpm", &size, &size));
+				"./textures/sprites/player.xpm", &size, &size));
 	game->collectible_img = (mlx_xpm_file_to_image(game->mlx_ptr,
-				"./textures/collectible.xpm", &size, &size));
+				"./textures/sprites/collectible.xpm", &size, &size));
 	game->exit_img = (mlx_xpm_file_to_image(game->mlx_ptr,
-				"./textures/exit.xpm", &size, &size));
+				"./textures/tiles/exit.xpm", &size, &size));
+}
+
+static void	*get_tile_img(t_game *game, char tile)
+{
+	if (tile == WALL)
+		return (game->wall_img);
+	else if (tile == EMPTY)
+		return (game->empty_img);
+	else if (tile == PLAYER)
+		return (game->player_img);
+	else if (tile == COLLECTIBLE)
+		return (game->collectible_img);
+	else if (tile == EXIT)
+		return (game->exit_img);
+	return (NULL);
 }
 
 void	draw_map(t_game *game)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	void	*img;
 
 	y = 0;
 	while (game->matrix[y])
@@ -39,10 +55,10 @@ void	draw_map(t_game *game)
 		x = 0;
 		while (game->matrix[y][x])
 		{
-			if (game->matrix[y][x] == '1')
-				(mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, 
-						game->wall_img, x * TILE_SIZE, y * TILE_SIZE));
-				// TODO: Adicionar a lógica para desenhar os outros tiles
+			img = get_tile_img(game, game->matrix[y][x]);
+			if (img)
+				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, 
+					img, x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
 		y++;

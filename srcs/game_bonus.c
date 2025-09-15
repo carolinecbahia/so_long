@@ -1,37 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_bonus.c                                      :+:      :+:    :+:   */
+/*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 03:34:45 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 19:33:39 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 02:24:23 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_bonus.h"
+#include "so_long_bonus.h"
 
-int	animate_sprites(t_game *game)
+void	enemy_directions(t_game *game, int *x, int *y, t_enemy *dir)
 {
-	if (game->frames < 1000)
-	{
-		game->frames++;
-		return (0);
-	}
-	game->frames = 0;
+	int	new_x;
+	int	new_y;
 
-    // TODO: Mova os inimigos
-    // TODO: Atualize a posição do jogador
-    // TODO: Redesenhe a tela
-	return (0);
+	new_x = *x + dir->dir_x;
+	new_y = *y + dir->dir_y;
+
+	if (game->matrix[new_y][new_x] == EMPTY)
+	{
+		game->matrix[*y][*x] = EMPTY;
+		game->matrix[new_y][new_x] = ENEMY;
+		*x = new_x;
+		*y = new_y;
+	}
+	else
+	{
+		dir->dir_x = dir->dir_x * -1;
+		dir->dir_y = dir->dir_y * -1;
+	}
 }
 
 void	move_enemies(t_game *game)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_enemy	dir;
 
+	dir.dir_x = 1;
+	dir.dir_y = 0;
 	y = 0;
 	while (y < game->height)
 	{
@@ -40,7 +50,7 @@ void	move_enemies(t_game *game)
 		{
 			if (game->matrix[y][x] == ENEMY)
 			{
-                // TODO: Adicione a lógica de patrulha do inimigo aqui
+                enemy_directions(game, &x, &y, &dir);
 			}
 			x++;
 		}
@@ -48,14 +58,3 @@ void	move_enemies(t_game *game)
 	}
 }
 
-void	display_moves(t_game *game)
-{
-	char	*moves;
-	char	*text;
-
-	moves = ft_itoa(game->moves);
-	text = ft_strjoin("Moves: ", moves);
-	mlx_string_put(game->mlx_ptr, game->win_ptr, 10, 10, 0xFFFFFFFF, text);
-	free(moves);
-	free(text);
-}

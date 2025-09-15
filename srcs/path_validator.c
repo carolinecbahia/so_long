@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 20:28:05 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 03:22:14 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**ft_dup_matrix(char **matrix)
 	return (matrix_copy);
 }
 
-static void	find_player_pos(t_game *map_data, t_vectors *pos)
+void	find_player_pos(t_game *map_data, t_vectors *pos)
 {
 	int	x;
 	int	y;
@@ -63,15 +63,12 @@ static void	find_player_pos(t_game *map_data, t_vectors *pos)
 
 static void	flood_fill(char **map, int x, int y)
 {
-	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == WALL)
+	if (x < 0 || y < 0 || !map[y] || !map[y][x] || WALL)
 		return ;
 	if (map[y][x] == VISITED)
 		return ;
-	if (map[y][x] == EXIT)
-	{
-		map[y][x] = VISITED;
-		return ;
-	}
+	if ((map[y][x] == COLLECTIBLE || map[y][x] == EXIT
+			|| map[y][x] == EMPTY || map[y][x] == PLAYER))
 	map[y][x] = VISITED;
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
@@ -79,18 +76,11 @@ static void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y - 1);
 }
 
-int	path_validator(t_game *map_data)
+static int	check_remaining(char **map_copy)
 {
-	char		**map_copy;
-	t_vectors	player_pos;
-	int			x;
-	int			y;
-
-	map_copy = ft_dup_matrix(map_data->matrix);
-	if (!map_copy)
-		return (0);
-	find_player_pos(map_data, &player_pos);
-	flood_fill(map_copy, player_pos.x, player_pos.y);
+	int	y;
+	int	x;
+	
 	y = 0;
 	while (map_copy[y])
 	{
@@ -98,14 +88,29 @@ int	path_validator(t_game *map_data)
 		while (map_copy[y][x])
 		{
 			if (map_copy[y][x] == COLLECTIBLE || map_copy[y][x] == EXIT)
-			{
-				ft_free_matrix(map_copy);
-				return (0);
-			}
+				return (-1);
 			x++;
 		}
 		y++;
 	}
+	return (0);
+}
+
+int	path_validator(t_game *map_data)
+{
+	char		**map_copy;
+	t_vectors	player_pos;
+
+	map_copy = ft_dup_matrix(map_data->matrix);
+	if (!map_copy)
+		return (-1);
+	find_player_pos(map_data, &player_pos);
+	flood_fill(map_copy, player_pos.x, player_pos.y);
+	if (check_remaining(map_copy) != 0)
+	{
+		ft_free_matrix(map_copy);
+		return(-1);
+	}
 	ft_free_matrix(map_copy);
-	return (1);
+	return (0);
 }

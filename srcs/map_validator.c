@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/14 03:50:44 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 03:12:14 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,17 @@ static int	check_map_dimensions(t_game *map_data)
 	y = 0;
 	while (map_data->matrix[y] != NULL)
 		y++;
-	if (y == 0)
+	if (y < 3)
 		return (-1);
 	x = ft_strlen(map_data->matrix[0]);
 	if (x < 3)
-		return (-1);
-	if (x < 3 || y < 3)
 		return (-1);
 	map_data->height = y;
 	map_data->width = x;
 	y = 0;
 	while (map_data->matrix[y] != NULL)
 	{
-		if (ft_strlen(map_data->matrix[y] != (int)x))
+		if (ft_strlen(map_data->matrix[y]) != x)
 			return (-1);
 		y++;
 	}
@@ -78,7 +76,7 @@ static int	check_map_walls(t_game *map_data)
 	return (0);
 }
 
-static void	count_map_elements(t_game *map_data)
+static int	count_map_elements(t_game *map_data)
 {
 	int	x;
 	int	y;
@@ -98,10 +96,14 @@ static void	count_map_elements(t_game *map_data)
 				map_data->exit_count++;
 			else if (map_data->matrix[y][x] == PLAYER)
 				map_data->player_count++;
+			else if ((map_data->matrix[y][x] != EMPTY
+				&& map_data->matrix[y][x] != WALL))
+				return(ft_free_and_error(map_data->matrix, "Invalid character in map"));
 			x++;
 		}
 		y++;
 	}
+	return (0);
 }
 
 int	map_validator(char *map_content, t_game *map_data)
@@ -113,7 +115,8 @@ int	map_validator(char *map_content, t_game *map_data)
 		return (ft_free_and_error(map_data->matrix, "Invalid map dimensions"));
 	if (check_map_walls(map_data) != 0)
 		return (ft_free_and_error(map_data->matrix, "Not enclosed map"));
-	count_map_elements(map_data);
+	if (count_map_elements(map_data) != 0)
+		return (-1);
 	if ((map_data->player_count != 1 || map_data->exit_count != 1
 			|| map_data->collectible_count < 1))
 		return (ft_free_and_error(map_data->matrix, "Wrong elements count"));
