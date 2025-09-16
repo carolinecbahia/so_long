@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 13:18:19 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 02:19:47 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 23:32:19 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,21 @@
 
 # define BUFFER_SIZE 42
 # define TILE_SIZE 32
-
+# define ANIMATION_SPEED 10000
+# define ENEMY_SPEED 30000
+# define MOVES_BACKGROUND_COLOR #0x000000
+# define PLAYER_FRAMES 2
 
 //structs and others
+typedef struct s_img 
+{
+    void    *ptr;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+} 	t_img;
+
 typedef struct s_game
 {
 	char	**matrix;
@@ -37,17 +49,21 @@ typedef struct s_game
 	int		collectible_count;
 	int		width;
 	int		height;
-	int		moves;
+	long	moves;
 	int		collected;
-	int		frames;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	void	*player_img;
-	void	*wall_img;
-	void	*collectible_img;
-	void	*empty_img;
-	void	*exit_img;
-	void	*enemy_img;
+	t_img	player_img;
+	int		frame_counter;
+	int		player_current_frame;
+	t_img	player_frames[PLAYER_FRAMES];
+	t_img	wall_img;
+	t_img	collectible_img;
+	t_img	empty_img;
+	t_img	exit_img;
+	t_enemy	*enemies;
+	int		enemy_count;
+	t_img	enemy_img;
 }	t_game;
 
 typedef struct s_vectors
@@ -63,7 +79,6 @@ typedef struct s_enemy
 	int	dir_x;
 	int	dir_y;
 }	t_enemy;
-
 
 typedef enum e_map_chars
 {
@@ -96,13 +111,19 @@ int		path_validator(t_game *data);
 int		map_validator(char *map_content, t_game *map_data);
 
 // gamerun
-int	setup_game(t_game *game);
-int	move_player();
-int	handle_key(int keycode, t_game *game);
-int	handle_close(t_game *game);
+int		setup_game(t_game *game);
+void	find_player_pos(t_game *map_data, t_vectors *pos);
+int		move_player(t_game *game, t_vectors *pos, int new_x, int new_y);
+int		handle_key(int keycode, t_game *game);
+int		handle_close(t_game *game);
+int 	move_up(t_game *game);
+int 	move_down(t_game *game);
+int 	move_left(t_game *game);
+int 	move_right(t_game *game);
 
 // render
-void	load_textures(t_game *game);
+int		load_base_textures(t_game *game);
+int		load_sprite_textures(t_game *game);
 void	draw_map(t_game *game);
 
 // gamerun bonus

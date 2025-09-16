@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 02:36:57 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 23:11:34 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,45 +35,65 @@ static char	*open_and_read_map(char *file)
 	return (map_content);
 }
 
-static int	init_mlx_window(t_game *map_data)
+static int	init_mlx_window(t_game *game)
 {
-	map_data->mlx_ptr = mlx_init();
-	if (!map_data->mlx_ptr)
-		return (ft_free_and_error(map_data->matrix, "mlx_init failed"));
-	map_data->win_ptr = mlx_new_window(
-		map_data->mlx_ptr, 
-		map_data->width * TILE_SIZE, 
-		map_data->height * TILE_SIZE, 
+	game->mlx_ptr = mlx_init();
+	if (!game->mlx_ptr)
+	{
+		free(game->matrix);
+		ft_printf("Error.\nInit matrix failed");
+		return (-1);
+	}
+	game->win_ptr = mlx_new_window(
+		game->mlx_ptr, 
+		game->width * TILE_SIZE, 
+		game->height * TILE_SIZE, 
 		"So Long"
 	);
-	if (!map_data->win_ptr)
-		return (ft_free_and_error(map_data->matrix, "mlx_new_window failed"));
+	if (!game->win_ptr)
+	{
+		cleanup_game(game);
+		ft_printf("Error.\nInit window failed");
+		return (-1);
+	}
 	return (0);		
+}
+
+static int	init_game(t_game *game, int argc, char **argv)
+{
+	char	*map_content;
+
+	if (argc != 2)
+	{
+		ft_printf("Error\n Usage: ./so_long <map.ber>\n");
+		return (-1);
+	}
+	map_content = open_and_read_map(argv[1]);
+	if (!map_content)
+		return (-1);
+	if (map_validator(map_content, game) == -1)
+	{
+		free(map_content);
+		return (-1);
+	}
+	free(map_content);
+	if (init_mlx_window(game) == -1)
+	{
+		cleanup_game(game);
+		return (-1);
+	}
+	setup_game(game);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	char	*map_content;
-	t_game	map_data;
-
-	if (argc != 2)
-		return (ft_free_and_error(NULL, "Usage: ./so_long <map_file.ber>"));
-	map_content = open_and_read_map(argv[1]);
-	if (!map_content)
+	t_game	game;
+	
+	ft_bzero(&game, sizeof(t_game));
+	if (init_game(&game, argc, argv) == -1)
 		return (1);
-	if (map_validator(map_content, &map_data) == -1)
-	{
-		free(map_content);
-		return (-1);
-	}
-	if (init_mlx_window(&map_data))
-	{
-		free(map_content);
-		return (-1);
-	}
-	setup_game(&map_data);
-	mlx_loop(map_data.mlx_ptr);
-	ft_free_matrix(map_data.matrix);
-	free(map_content);
+	mlx_loop(game.mlx_ptr);
+	cleanup_game(&game);
 	return (0);
 }

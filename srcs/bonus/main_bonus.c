@@ -6,13 +6,13 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 02:22:51 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 02:31:43 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/16 01:46:54 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static char *open_and_read_map_bonus(char *file)
+static char *open_and_read_map(char *file)
 {
 	int		fd;
 	char	*map_content;
@@ -69,7 +69,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game.mlx_ptr, animate_sprites, &game);
 	mlx_hook(game.wall_img, 17, 0, handle_close, &game);
 	mlx_loop(game.mlx_ptr);
-	ft_free_matrix(game.matrix);
-	free(map_content);
+	cleanup_game_bonus(&game);
 	return (0);
 }

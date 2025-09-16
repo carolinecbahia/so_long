@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 03:23:32 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/16 01:40:50 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@
 
 
 //structs and others
+
+typedef struct s_img {
+    void    *ptr;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+} 	t_img;
+
 typedef struct s_game
 {
 	char	**matrix;
@@ -41,11 +50,11 @@ typedef struct s_game
 	int		collected;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	void	*player_img;
-	void	*wall_img;
-	void	*collectible_img;
-	void	*empty_img;
-	void	*exit_img;
+	t_img	player_img;
+	t_img	wall_img;
+	t_img	collectible_img;
+	t_img	empty_img;
+	t_img	exit_img;
 }	t_game;
 
 typedef struct s_vectors
@@ -95,7 +104,11 @@ int 	move_left(t_game *game);
 int 	move_right(t_game *game);
 
 // render
-void	load_textures(t_game *game);
+int		load_base_textures(t_game *game);
+int		load_sprite_textures(t_game *game);
+unsigned int	get_pixel_color(t_img *img, int x, int y);
+void	put_pixel_to_img(t_img *img, int x, int y, unsigned int color);
+t_img	create_merged_tile(t_game *game, t_img *base, t_img *sprite);
 void	draw_map(t_game *game);
 
 #endif

@@ -6,13 +6,14 @@
 /*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 01:51:09 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/15 21:37:24 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	load_textures(t_game *game);
+int		load_base_textures(t_game *game);
+int		load_sprite_textures(t_game *game);
 int		handle_close(t_game *game);
 int 	move_up(t_game *game);
 int 	move_down(t_game *game);
@@ -21,14 +22,8 @@ int 	move_right(t_game *game);
 
 int	setup_game(t_game *game)
 {
-	game->mlx_ptr = mlx_init();
-	if (!game->mlx_ptr)
-		return (-1);
-	game->win_ptr = (mlx_new_window(game->mlx_ptr, 
-			game->width * TILE_SIZE, game->height * TILE_SIZE, "So Long"));
-	if (!game->win_ptr)
-		return (-1);
-	load_textures(game);
+	load_base_textures(game);
+	load_sprite_textures(game);
 	draw_map(game);
 	mlx_key_hook(game->win_ptr, handle_key, game);
 	mlx_hook(game->win_ptr, 17, 0, handle_close, game);
