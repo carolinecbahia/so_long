@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/16 01:39:06 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:00:20 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char	**dup_matrix(char **matrix);
 
 static void	flood_fill(char **map, int x, int y)
 {
@@ -31,7 +33,7 @@ static int	check_remaining(char **map_copy)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
 	while (map_copy[y])
 	{
@@ -52,7 +54,7 @@ int	path_validator(t_game *map_data)
 	char		**map_copy;
 	t_vectors	player_pos;
 
-	map_copy = ft_dup_matrix(map_data->matrix);
+	map_copy = dup_matrix(map_data->matrix);
 	if (!map_copy)
 		return (-1);
 	find_player_pos(map_data, &player_pos);
@@ -60,7 +62,7 @@ int	path_validator(t_game *map_data)
 	if (check_remaining(map_copy) != 0)
 	{
 		ft_free_matrix(map_copy);
-		return(-1);
+		return (-1);
 	}
 	ft_free_matrix(map_copy);
 	return (0);

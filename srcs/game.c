@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/15 21:37:24 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:00:59 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int		load_base_textures(t_game *game);
 int		load_sprite_textures(t_game *game);
 int		handle_close(t_game *game);
-int 	move_up(t_game *game);
-int 	move_down(t_game *game);
-int 	move_left(t_game *game);
-int 	move_right(t_game *game);
+int		move_up(t_game *game);
+int		move_down(t_game *game);
+int		move_left(t_game *game);
+int		move_right(t_game *game);
+void	find_player_pos(t_game *map_data, t_vectors *pos);
 
 int	setup_game(t_game *game)
 {

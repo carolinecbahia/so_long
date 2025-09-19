@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/16 01:38:30 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:58:22 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	path_validator(t_game *map_data);
+int		path_validator(t_game *map_data);
+char	**create_matrix(char *map_content);
+int		check_map_dimensions(t_game *map_data);
+int		check_map_walls(t_game *map_data);
+char	**dup_matrix(char **matrix);
+void	find_player_pos(t_game *map_data, t_vectors *pos);
 
 static int	count_map_elements(t_game *map_data)
 {

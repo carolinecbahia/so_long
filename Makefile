@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/08 14:37:38 by ccavalca          #+#    #+#              #
-#    Updated: 2025/09/16 01:33:59 by ccavalca         ###   ########.fr        #
+#    Updated: 2025/09/19 14:48:51 by ccavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ MLX_DIR = minilibx
 SRCS_DIR = srcs
 BONUS_DIR = $(SRCS_DIR)/bonus
 
-COMMON_SRCS = 	
-				$(SRCS_DIR)/map_reader.c \
+COMMON_SRCS = 	$(SRCS_DIR)/map_reader.c \
 				$(SRCS_DIR)/hooks.c \
+				$(SRCS_DIR)/cleanup.c \
 
 MANDATORY_SRCS = 	$(SRCS_DIR)/main.c \
 					$(SRCS_DIR)/map_validator.c \
@@ -32,7 +32,6 @@ MANDATORY_SRCS = 	$(SRCS_DIR)/main.c \
 					$(SRCS_DIR)/render.c \
 					$(SRCS_DIR)/render_utils.c \
 					$(SRCS_DIR)/game.c \
-					$(SRCS_DIR)/cleanup.c \
 					
 BONUS_SRCS = 	$(wildcard $(BONUS_DIR)/*.c)
 

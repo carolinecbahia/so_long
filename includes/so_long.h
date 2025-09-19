@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/16 01:40:50 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:56:51 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 
 //structs and others
 
-typedef struct s_img {
-    void    *ptr;
-    char    *addr;
-    int     bpp;
-    int     line_len;
-    int     endian;
-} 	t_img;
+typedef struct s_img
+{
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_game
 {
@@ -83,32 +84,37 @@ typedef enum e_keys
 }	t_keys;
 
 // clean
-void	ft_free_matrix(char **matrix);
-int		ft_free_and_error(char **matrix, char *msg);
-void	cleanup_game(t_game *game);
+void			ft_free_matrix(char **matrix);
+int				ft_free_and_error(char **matrix, char *msg);
+void			cleanup_game(t_game *game);
 
 // map handlers
-char	*map_reader(int fd);
-int		path_validator(t_game *data);
-int		map_validator(char *map_content, t_game *map_data);
+char			**create_matrix(char *map_content);
+int				check_map_dimensions(t_game *map_data);
+int				check_map_walls(t_game *map_data);
+char			**dup_matrix(char **matrix);
+void			find_player_pos(t_game *map_data, t_vectors *pos);
+char			*map_reader(int fd);
+int				path_validator(t_game *data);
+int				map_validator(char *map_content, t_game *map_data);
 
 // gamerun
-int		setup_game(t_game *game);
-void	find_player_pos(t_game *map_data, t_vectors *pos);
-int		move_player(t_game *game, t_vectors *pos, int new_x, int new_y);
-int		handle_key(int keycode, t_game *game);
-int		handle_close(t_game *game);
-int 	move_up(t_game *game);
-int 	move_down(t_game *game);
-int 	move_left(t_game *game);
-int 	move_right(t_game *game);
+int				setup_game(t_game *game);
+void			find_player_pos(t_game *map_data, t_vectors *pos);
+int				move_player(t_game *game, t_vectors *pos, int new_x, int new_y);
+int				handle_key(int keycode, t_game *game);
+int				handle_close(t_game *game);
+int				move_up(t_game *game);
+int				move_down(t_game *game);
+int				move_left(t_game *game);
+int				move_right(t_game *game);
 
 // render
-int		load_base_textures(t_game *game);
-int		load_sprite_textures(t_game *game);
+int				load_base_textures(t_game *game);
+int				load_sprite_textures(t_game *game);
 unsigned int	get_pixel_color(t_img *img, int x, int y);
-void	put_pixel_to_img(t_img *img, int x, int y, unsigned int color);
-t_img	create_merged_tile(t_game *game, t_img *base, t_img *sprite);
-void	draw_map(t_game *game);
+void			put_pixel_to_img(t_img *img, int x, int y, unsigned int color);
+t_img			create_merged_tile(t_game *game, t_img *base, t_img *sprite);
+void			draw_map(t_game *game);
 
 #endif
