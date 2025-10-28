@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 20:59:52 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/19 15:07:57 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/10/26 01:09:54 by carol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,34 @@ char	*map_reader(int fd)
 		map_content = temp;
 		if (!map_content)
 			return (NULL);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
 	if (bytes_read == -1)
 	{
-		ft_free_and_error(&map_content, "Error\nReading file failed");
+		ft_printf("Error\nReading file failed\n");
+		return (NULL);
+	}
+	return (map_content);
+}
+
+char	*open_and_read_map(char *file)
+{
+	int		fd;
+	char	*map_content;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Failed to read map file", 2);
+		return (NULL);
+	}
+	map_content = map_reader(fd);
+	close (fd);
+	if (!map_content)
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Failed to read map file", 2);
 		return (NULL);
 	}
 	return (map_content);

@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/19 15:00:59 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/10/26 01:09:19 by carol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int		load_base_textures(t_game *game);
-int		load_sprite_textures(t_game *game);
-int		handle_close(t_game *game);
-int		move_up(t_game *game);
-int		move_down(t_game *game);
-int		move_left(t_game *game);
-int		move_right(t_game *game);
-void	find_player_pos(t_game *map_data, t_vectors *pos);
 
 int	setup_game(t_game *game)
 {
@@ -38,7 +29,7 @@ static void	check_win(t_game *game)
 	exit (0);
 }
 
-int move_player(t_game *game, t_vectors *pos, int new_x, int new_y)
+int	move_player(t_game *game, t_vectors *pos, int new_x, int new_y)
 {
 	char	dest;
 
@@ -63,10 +54,10 @@ int move_player(t_game *game, t_vectors *pos, int new_x, int new_y)
 	return (1);
 }
 
-int		handle_key(int keycode, t_game *game)
+int	handle_key(int keycode, t_game *game)
 {
-	t_vectors pos;
-	
+	t_vectors	pos;
+
 	find_player_pos(game, &pos);
 	if (keycode == KEY_ESC)
 		handle_close(game);

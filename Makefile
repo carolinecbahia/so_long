@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+         #
+#    By: carol <carol@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/08 14:37:38 by ccavalca          #+#    #+#              #
-#    Updated: 2025/09/19 14:48:51 by ccavalca         ###   ########.fr        #
+#    Updated: 2025/10/15 03:12:46 by carol            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 NAME_BONUS = $(NAME)_bonus
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -Iincludes -I./Libft -I./ft_printf -I./minilibx
+CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./Libft -I./ft_printf -I./minilibx
 
 LIBFT_DIR = Libft
 PRINTF_DIR = ft_printf
@@ -25,13 +25,14 @@ BONUS_DIR = $(SRCS_DIR)/bonus
 COMMON_SRCS = 	$(SRCS_DIR)/map_reader.c \
 				$(SRCS_DIR)/hooks.c \
 				$(SRCS_DIR)/cleanup.c \
+				$(SRCS_DIR)/render.c \
+				$(SRCS_DIR)/map_utils.c \
+				$(SRCS_DIR)/map_validator.c \
+				$(SRCS_DIR)/render_utils.c \
+				$(SRCS_DIR)/game.c \
 
 MANDATORY_SRCS = 	$(SRCS_DIR)/main.c \
-					$(SRCS_DIR)/map_validator.c \
 					$(SRCS_DIR)/path_validator.c \
-					$(SRCS_DIR)/render.c \
-					$(SRCS_DIR)/render_utils.c \
-					$(SRCS_DIR)/game.c \
 					
 BONUS_SRCS = 	$(wildcard $(BONUS_DIR)/*.c)
 

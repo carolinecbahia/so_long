@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/19 15:00:20 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/10/26 01:08:13 by carol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-char	**dup_matrix(char **matrix);
 
 static void	flood_fill(char **map, int x, int y)
 {
@@ -22,7 +20,7 @@ static void	flood_fill(char **map, int x, int y)
 		return ;
 	if ((map[y][x] == COLLECTIBLE || map[y][x] == EXIT
 			|| map[y][x] == EMPTY || map[y][x] == PLAYER))
-	map[y][x] = VISITED;
+		map[y][x] = VISITED;
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
@@ -49,6 +47,10 @@ static int	check_remaining(char **map_copy)
 	return (0);
 }
 
+static int	check_collectibles(t_game *game)
+{
+}
+
 int	path_validator(t_game *map_data)
 {
 	char		**map_copy;
@@ -59,7 +61,7 @@ int	path_validator(t_game *map_data)
 		return (-1);
 	find_player_pos(map_data, &player_pos);
 	flood_fill(map_copy, player_pos.x, player_pos.y);
-	if (check_remaining(map_copy) != 0)
+	if (check_remaining(map_copy) == 0)
 	{
 		ft_free_matrix(map_copy);
 		return (-1);

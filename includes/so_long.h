@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/19 14:56:51 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/10/15 11:38:49 by carol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 # define BUFFER_SIZE 42
 # define TILE_SIZE 32
-
 
 //structs and others
 
@@ -95,6 +94,7 @@ int				check_map_walls(t_game *map_data);
 char			**dup_matrix(char **matrix);
 void			find_player_pos(t_game *map_data, t_vectors *pos);
 char			*map_reader(int fd);
+char			*open_and_read_map(char *file);
 int				path_validator(t_game *data);
 int				map_validator(char *map_content, t_game *map_data);
 
@@ -115,6 +115,8 @@ int				load_sprite_textures(t_game *game);
 unsigned int	get_pixel_color(t_img *img, int x, int y);
 void			put_pixel_to_img(t_img *img, int x, int y, unsigned int color);
 t_img			create_merged_tile(t_game *game, t_img *base, t_img *sprite);
+t_img			*get_sprite_img(t_game *game, char tile);
+t_img			*get_base_img(t_game *game, char tile);
 void			draw_map(t_game *game);
 
 #endif

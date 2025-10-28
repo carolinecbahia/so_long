@@ -3,71 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 02:22:51 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/09/16 01:46:54 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/10/26 12:33:49 by carol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static char *open_and_read_map(char *file)
-{
-	int		fd;
-	char	*map_content;
-	
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (ft_free_and_error(NULL, strerror(errno)));
-	map_content = map_reader(fd);
-	close (fd);
-	if (!map_content)
-		return (ft_free_and_error(NULL, "Failed to read map file"));
-	return (map_content);
-}
-
 static int	init_mlx_window(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		return (ft_free_and_error(game->matrix, "mlx_init failed"));
+	{
+		cleanup_game(game);
+		ft_printf("Error.\n Init window failed");
+		return (-1);
+	}
 	game->win_ptr = mlx_new_window(
-		game->mlx_ptr, 
-		game->width * TILE_SIZE, 
-		game->height * TILE_SIZE, 
-		"So Long Bonus"
-	);
+			game->mlx_ptr,
+			game->width * TILE_SIZE,
+			game->height * TILE_SIZE,
+			"So Long Bonus");
 	if (!game->win_ptr)
-		return (ft_free_and_error(game->matrix, "mlx_new_window failed"));
-	return (0);		
+	{
+		cleanup_game(game);
+		ft_printf("Error.\n Init window failed");
+		return (-1);
+	}
+	return (0);
+}
+
+static int	init_game(t_game *game, int argc, char **argv)
+{
+	char	*map_content;
+
+	if (argc != 2)
+	{
+		ft_printf("Error\n Usage: ./so_long <map.ber>\n");
+		return (-1);
+	}
+	map_content = open_and_read_map(argv[1]);
+	if (!map_content)
+	{
+		return (-1);
+	}
+	if (map_validator_bonus(map_content, game) == -1)
+	{
+		free(map_content);
+		return (-1);
+	}
+	free(map_content);
+	if (init_mlx_window(game) == -1)
+	{
+		cleanup_game(game);
+		return (-1);
+	}
+	setup_game_bonus(game);
+	return (0);
+}
+
+void	bonus_init(t_game *game)
+{
+	game->frame_counter = 0;
+	load_player_textures_bonus(game);
+	load_enemies_textures_bonus(game);
+	mlx_loop_hook(game->mlx_ptr, animate_sprites, game);
 }
 
 int	main(int argc, char **argv)
 {
-	char	*map_content;
 	t_game	game;
 
-	if (argc != 2)
-		return (ft_free_and_error(NULL, "Usage: ./so_long_bonus <map_file.ber>"));
-	map_content = open_and_read_map(argv[1]);
-	if (!map_content)
+	ft_bzero(&game, sizeof(t_game));
+	if (init_game(&game, argc, argv) == -1)
 		return (1);
-	if (map_validator(map_content, &game) == -1)
-	{
-		free(map_content);
-		return (-1);
-	}
-	if (init_mlx_window(&game))
-	{
-		free(map_content);
-		return (-1);
-	}
-	setup_game(&game);
-	bonus_textures(&game);
 	bonus_init(&game);
-	mlx_loop_hook(game.mlx_ptr, animate_sprites, &game);
-	mlx_hook(game.wall_img, 17, 0, handle_close, &game);
+	bonus_init(&game);
 	mlx_loop(game.mlx_ptr);
 	cleanup_game_bonus(&game);
 	return (0);
