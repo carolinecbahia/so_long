@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 03:30:29 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/26 01:06:33 by carol            ###   ########.fr       */
+/*   Updated: 2025/10/30 15:32:59 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	load_sprite_textures(t_game *game)
 	return (0);
 }
 
-void	draw_base_map(t_game *game)
+void	draw_map(t_game *game)
 {
 	int		x;
 	int		y;
@@ -125,8 +125,4 @@ void	draw_base_map(t_game *game)
 		}
 		y++;
 	}
-}
-
-void	draw_sprites_in_map(t_game *game)
-{
 }

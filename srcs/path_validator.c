@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/26 01:08:13 by carol            ###   ########.fr       */
+/*   Updated: 2025/10/30 15:30:59 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ static int	check_remaining(char **map_copy)
 		y++;
 	}
 	return (0);
-}
-
-static int	check_collectibles(t_game *game)
-{
 }
 
 int	path_validator(t_game *map_data)

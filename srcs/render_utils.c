@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 21:10:27 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/26 01:07:58 by carol            ###   ########.fr       */
+/*   Updated: 2025/10/30 15:30:51 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,4 @@ void	put_pixel_to_img(t_img *img, int x, int y, unsigned int color)
 
 	pixel_address = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)pixel_address = color;
-}
-
-int	is_pixel_solid(t_img *img)
-{
 }
