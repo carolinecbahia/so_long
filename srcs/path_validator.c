@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccavalca <ccavalca@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/11/23 23:28:21 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:54:08 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	flood_fill(char **map, int x, int y, int allow_exit)
 {
-	if (x < 0 || y < 0 || !map[y] || !map[y][x])
+	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == WALL)
 		return ;
 	if (map[y][x] == VISITED)
 		return ;
-	/* mark walkable tiles as visited so we don't recurse forever */
 	if (map[y][x] == COLLECTIBLE || map[y][x] == EMPTY ||
 		map[y][x] == EXIT || map[y][x] == PLAYER)
 		map[y][x] = VISITED;
