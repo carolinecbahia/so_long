@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 21:03:58 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/26 01:09:19 by carol            ###   ########.fr       */
+/*   Updated: 2025/11/30 17:38:08 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int	handle_key(int keycode, t_game *game)
 	find_player_pos(game, &pos);
 	if (keycode == KEY_ESC)
 		handle_close(game);
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_UP)
 		move_up(game);
-	if (keycode == KEY_A)
+	if (keycode == KEY_A || keycode == KEY_LF)
 		move_left(game);
-	if (keycode == KEY_S)
+	if (keycode == KEY_S || keycode == KEY_DW)
 		move_down(game);
-	if (keycode == KEY_D)
+	if (keycode == KEY_D || keycode == KEY_RG)
 		move_right(game);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/15 11:38:49 by carol            ###   ########.fr       */
+/*   Updated: 2025/11/30 16:07:09 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ typedef enum e_keys
 	KEY_W = 119,
 	KEY_A = 97,
 	KEY_S = 115,
-	KEY_D = 100
+	KEY_D = 100,
+	KEY_UP = 65362,
+	KEY_DW = 65364,
+	KEY_LF = 65361,
+	KEY_RG = 65363
 }	t_keys;
 
 // clean

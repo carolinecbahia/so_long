@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 19:33:50 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/15 11:56:20 by carol            ###   ########.fr       */
+/*   Updated: 2025/11/30 17:45:17 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ void	cleanup_game(t_game *game)
 			mlx_destroy_image(game->mlx_ptr, game->exit_img.ptr);
 		if (game->win_ptr)
 			mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
+		if (game->mlx_ptr)
+		{
+			mlx_destroy_display(game->mlx_ptr);
+			free(game->mlx_ptr);
+		}
 	}
 	if (game->matrix)
 		ft_free_matrix(game->matrix);

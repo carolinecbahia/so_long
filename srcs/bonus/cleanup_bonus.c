@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 01:32:28 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/26 12:37:58 by carol            ###   ########.fr       */
+/*   Updated: 2025/11/30 17:51:44 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,7 @@ void	cleanup_game_bonus(t_game *game)
 		return ;
 	cleanup_enemies(game);
 	cleanup_player_frames(game);
+	game->player_img.ptr = NULL;
+	game->enemy_img.ptr = NULL;
 	cleanup_game(game);
 }
