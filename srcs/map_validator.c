@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carol <carol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 22:12:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/15 11:55:36 by carol            ###   ########.fr       */
+/*   Updated: 2025/12/09 12:49:24 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 static int	count_map_elements(t_game *game)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	c;
 
 	game->collectible_count = 0;
 	game->player_count = 0;
 	game->exit_count = 0;
-	y = 0;
-	while (game->matrix[y] != NULL)
+	y = -1;
+	while (game->matrix[++y] != NULL)
 	{
-		x = 0;
-		while (game->matrix[y][x] != '\0')
+		x = -1;
+		while (game->matrix[y][++x] != '\0')
 		{
-			if (game->matrix[y][x] == COLLECTIBLE)
+			c = game->matrix[y][x];
+			if (c == COLLECTIBLE)
 				game->collectible_count++;
-			else if (game->matrix[y][x] == EXIT)
+			else if (c == EXIT)
 				game->exit_count++;
-			else if (game->matrix[y][x] == PLAYER)
+			else if (c == PLAYER)
 				game->player_count++;
-			else if ((game->matrix[y][x] != EMPTY
-				&& game->matrix[y][x] != WALL))
-			{
-				ft_printf("Invalid character: %c\n", game->matrix[y][x]);
-				return (-1);
-			}
-			x++;
+			else if ((c != EMPTY && c != WALL))
+				return (print_error("Error: Invalid character!\n"));
 		}
-		y++;
 	}
 	return (0);
 }
@@ -98,35 +94,17 @@ int	map_validator(char *map_content, t_game *game)
 {
 	game->matrix = create_matrix(map_content);
 	if (!game->matrix)
-	{
-		ft_printf("Failed to create matrix\n");
-		return (-1);
-	}
+		return (print_error("Error: Failed to create matrix\n"));
 	if (check_map_dimensions(game) != 0)
-	{
-		ft_printf("Invalid map dimensions\n");
-		return (-1);
-	}
+		return (print_error("Error: Invalid map dimensions\n"));
 	if (check_map_walls(game) != 0)
-	{
-		ft_printf("Error\n Map is not enclosed by walls\n");
-		return (-1);
-	}
+		return (print_error("Error: Map is not enclosed by walls\n"));
 	if (count_map_elements(game) != 0)
-	{
-		return (-1);
-	}
+		return (print_error("Error: Wrong elements count\n"));
 	if ((game->player_count != 1 || game->exit_count != 1
 			|| game->collectible_count < 1))
-	{
-		ft_printf("Wrong elements count\n");
-		return (-1);
-	}
+		return (print_error("Error: Wrong elements count\n"));
 	if (path_validator(game) != 0)
-	{
-		ft_printf("No valid path\n");
-		cleanup_game(game);
-		return (-1);
-	}
+		return (print_error_and_cleanup("Error: No valid path\n", game));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 03:30:29 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/10/30 15:32:59 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:37:46 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ t_img	create_merged_tile(t_game *game, t_img *base, t_img *sprite)
 	merged_tile.ptr = mlx_new_image(game->mlx_ptr, TILE_SIZE, TILE_SIZE);
 	merged_tile.addr = mlx_get_data_addr(merged_tile.ptr, &merged_tile.bpp,
 			&merged_tile.line_len, &merged_tile.endian);
-	y = 0;
-	while (y < TILE_SIZE)
+	y = -1;
+	while (++y < TILE_SIZE)
 	{
-		x = 0;
-		while (x < TILE_SIZE)
+		x = -1;
+		while (++x < TILE_SIZE)
 		{
 			sprite_pixel_color = get_pixel_color(sprite, x, y);
 			if (sprite_pixel_color != 0xFF000000)
@@ -36,9 +36,7 @@ t_img	create_merged_tile(t_game *game, t_img *base, t_img *sprite)
 				put_pixel_to_img(&merged_tile, x, y,
 					get_pixel_color(base, x, y));
 			}
-			x++;
 		}
-		y++;
 	}
 	return (merged_tile);
 }
@@ -92,13 +90,35 @@ int	load_sprite_textures(t_game *game)
 	return (0);
 }
 
+static void	put_tile(t_game *game, int x, int y)
+{
+	char	tile;
+	t_img	*base_img;
+	t_img	*sprite_img;
+	t_img	merged_img;
+
+	tile = game->matrix[y][x];
+	base_img = get_base_img(game, tile);
+	sprite_img = get_sprite_img(game, tile);
+	if (sprite_img && base_img && base_img->ptr && sprite_img->ptr)
+	{
+		merged_img = create_merged_tile(game, base_img, sprite_img);
+		if (merged_img.ptr)
+			(mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
+					merged_img.ptr, x * TILE_SIZE, y * TILE_SIZE));
+		mlx_destroy_image(game->mlx_ptr, merged_img.ptr);
+	}
+	else if (base_img && base_img->ptr)
+	{
+		(mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
+				base_img->ptr, x * TILE_SIZE, y * TILE_SIZE));
+	}
+}
+
 void	draw_map(t_game *game)
 {
 	int		x;
 	int		y;
-	t_img	*base_img;
-	t_img	*sprite_img;
-	t_img	merged_img;
 
 	y = 0;
 	while (y < game->height)
@@ -106,21 +126,7 @@ void	draw_map(t_game *game)
 		x = 0;
 		while (x < game->width)
 		{
-			base_img = get_base_img(game, game->matrix[y][x]);
-			sprite_img = get_sprite_img(game, game->matrix[y][x]);
-			if (sprite_img && base_img && base_img->ptr && sprite_img->ptr)
-			{
-				merged_img = create_merged_tile(game, base_img, sprite_img);
-				if (merged_img.ptr)
-					(mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-							merged_img.ptr, x * TILE_SIZE, y * TILE_SIZE));
-				mlx_destroy_image(game->mlx_ptr, merged_img.ptr);
-			}
-			else if (base_img && base_img->ptr)
-			{
-				(mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-						base_img->ptr, x * TILE_SIZE, y * TILE_SIZE));
-			}
+			put_tile(game, x, y);
 			x++;
 		}
 		y++;

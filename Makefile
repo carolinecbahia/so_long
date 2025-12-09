@@ -6,7 +6,7 @@
 #    By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/08 14:37:38 by ccavalca          #+#    #+#              #
-#    Updated: 2025/11/30 17:38:12 by ccavalca         ###   ########.fr        #
+#    Updated: 2025/12/09 12:50:26 by ccavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,10 @@ LIBFT_DIR = Libft
 PRINTF_DIR = ft_printf
 MLX_DIR = minilibx
 SRCS_DIR = srcs
-BONUS_DIR = $(SRCS_DIR)/bonus
 
 COMMON_SRCS = 	$(SRCS_DIR)/map_reader.c \
 				$(SRCS_DIR)/hooks.c \
-				$(SRCS_DIR)/cleanup.c \
+				$(SRCS_DIR)/cleanup_and_error.c \
 				$(SRCS_DIR)/map_utils.c \
 				$(SRCS_DIR)/map_validator.c \
 				$(SRCS_DIR)/render_utils.c \
@@ -33,18 +32,9 @@ MANDATORY_SRCS = 	$(SRCS_DIR)/main.c \
 					$(SRCS_DIR)/path_validator.c \
 					$(SRCS_DIR)/render.c \
 					$(SRCS_DIR)/game.c \
-					
-BONUS_SRCS = 	$(BONUS_DIR)/cleanup_bonus.c \
-				$(BONUS_DIR)/enemy_bonus.c \
-				$(BONUS_DIR)/game_bonus.c \
-				$(BONUS_DIR)/main_bonus.c \
-				$(BONUS_DIR)/map_path_validator_bonus.c \
-				$(BONUS_DIR)/render_bonus.c \
-				$(BONUS_DIR)/render_utils_bonus.c \
 
 COMMON_OBJS = $(COMMON_SRCS:.c=.o)
 MANDATORY_OBJS = $(MANDATORY_SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 LIBFT_A = $(LIBFT_DIR)/libft.a
 PRINTF_A = $(PRINTF_DIR)/libftprintf.a

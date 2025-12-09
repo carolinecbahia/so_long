@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 20:44:05 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/11/25 15:54:08 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/12/09 10:37:45 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	flood_fill(char **map, int x, int y, int allow_exit)
 {
-	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == WALL)
+	if (x < 0 || y < 0 || !map[y] || !map[y][x])
 		return ;
-	if (map[y][x] == VISITED)
+	if (map[y][x] == VISITED || map[y][x] == WALL)
+		return ;
+	if (map[y][x] == EXIT && !allow_exit)
 		return ;
 	if (map[y][x] == COLLECTIBLE || map[y][x] == EMPTY ||
 		map[y][x] == EXIT || map[y][x] == PLAYER)

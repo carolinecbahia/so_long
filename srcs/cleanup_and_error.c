@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   cleanup_and_error.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 19:33:50 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/11/30 17:45:17 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:40:39 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,17 @@ void	cleanup_game(t_game *game)
 	}
 	if (game->matrix)
 		ft_free_matrix(game->matrix);
+}
+
+int	print_error(char *msg)
+{
+	ft_printf("%s\n", msg);
+	return (-1);
+}
+
+int	print_error_and_cleanup(char *msg, t_game *game)
+{
+	ft_printf("%s\n", msg);
+	cleanup_game(game);
+	return (-1);
 }

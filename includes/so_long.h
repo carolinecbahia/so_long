@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:37:34 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/11/30 16:07:09 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:50:15 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef enum e_keys
 void			ft_free_matrix(char **matrix);
 int				ft_free_and_error(char **matrix, char *msg);
 void			cleanup_game(t_game *game);
+int				print_error_and_cleanup(char *msg, t_game *game);
+int				print_error(char *msg);
 
 // map handlers
 char			**create_matrix(char *map_content);
