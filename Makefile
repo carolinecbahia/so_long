@@ -6,12 +6,11 @@
 #    By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/08 14:37:38 by ccavalca          #+#    #+#              #
-#    Updated: 2025/12/09 12:50:26 by ccavalca         ###   ########.fr        #
+#    Updated: 2025/12/09 13:04:13 by ccavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-NAME_BONUS = $(NAME)_bonus
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./Libft -I./ft_printf -I./minilibx
@@ -54,11 +53,6 @@ $(PRINTF_A):
 $(MLX_DIR)/libmlx.a:
 	make -C $(MLX_DIR)
 
-bonus: $(NAME_BONUS)
-
-$(NAME)_bonus: $(PRINTF_A) $(MLX_DIR)/libmlx.a $(COMMON_OBJS) $(BONUS_OBJS) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(COMMON_OBJS) $(BONUS_OBJS) $(LIBFT_A) $(PRINTF_A) $(MLX_LIB) -o $(NAME_BONUS)
-
 re: fclean all
 
 clean:
@@ -72,4 +66,4 @@ fclean: clean
 	make fclean -C $(LIBFT_DIR)
 	make fclean -C $(PRINTF_DIR)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
