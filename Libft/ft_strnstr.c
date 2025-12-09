@@ -6,7 +6,7 @@
 /*   By: ccavalca <ccavalca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 15:23:28 by ccavalca          #+#    #+#             */
-/*   Updated: 2025/07/18 19:59:02 by ccavalca         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:01:28 by ccavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		while ((i + j) < len && big[i + j] == little[j] && little[j])
 		{
 			j++;
-		}	
+		}
 		if (!little[j])
 		{
 			return ((char *)&big[i]);
 		}
-	i++;
+		i++;
 	}
 	return (NULL);
 }
