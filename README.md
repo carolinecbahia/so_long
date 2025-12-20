@@ -26,11 +26,13 @@
 - ✅ Path verification (all collectibles and exit are reachable)
 
 ### Bonus
-- ✅ Enemy sprites with movement patterns
-- ✅ Animated sprites
-- ✅ Visual effects
-- ✅ Sound effects
-- ✅ Multiple levels
+- ❌ Enemy sprites with movement patterns (Not implemented)
+- ❌ Animated sprites (Not implemented)
+- ❌ Visual effects (Not implemented)
+- ❌ Sound effects (Not implemented)
+- ❌ Multiple levels (Not implemented)
+
+**Note**: Only mandatory features were implemented for this submission.
 
 ## 🛠️ Technical Stack
 
@@ -260,12 +262,26 @@ GitHub: [@carolinecbahia](https://github.com/carolinecbahia)
 | Criterion | Status | Notes |
 |-----------|--------|-------|
 | Mandatory | ✅ Pass | All features implemented |
-| Bonus | ✅ Pass | Enemies and animations working |
+| Bonus | ❌ Not Submitted | Focus on mandatory only |
 | Norm | ✅ Pass | No norm errors |
 | Memory | ✅ Clean | No leaks detected |
 | Performance | ✅ Optimal | Smooth 60 FPS |
 
-**Grade**: 100/100 ⭐
+**Grade**: 100/100 (Mandatory) ⭐
+
+---
+
+## 🎯 Future Bonus Features (Not Implemented)
+
+These features could be added in future iterations:
+
+- [ ] Enemy AI with pathfinding
+- [ ] Sprite animations
+- [ ] Particle effects and explosions
+- [ ] Background music and SFX
+- [ ] Multiple difficulty levels
+- [ ] High score system
+- [ ] Level progression
 
 ---
 
