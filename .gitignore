@@ -1,0 +1,34 @@
+# Compiled objects and executables
+*.o
+*.a
+*.so
+so_long
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary and backup files
+*.swp
+*.swo
+*~
+*.tmp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Build outputs
+objs/
+bin/
+dist/
+
+# Dependencies (if using external libraries)
+*.dylib
+*.dll
+
+# Test outputs and logs
+*.log
+test_output/
